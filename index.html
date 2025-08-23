@@ -1,0 +1,74 @@
+<!doctype html>
+$('sellInfo').textContent = sellAddr + ' ('+sellSymbol+')';
+$('payInfo').textContent = paymentToken + ' ('+paySymbol+')';
+$('sellSym').textContent = sellSymbol;
+$('paySym').textContent = paySymbol;
+$('lotInfo').textContent = fmt(lot, sellDecimals) + ' ' + sellSymbol;
+
+
+$('amount').addEventListener('input', quoteUpdate);
+await quoteUpdate();
+}
+
+
+async function quoteUpdate(){
+if(!sale) return;
+const amt = parse($('amount').value, sellDecimals);
+if(amt.isZero()){ $('quote').textContent = '0'; return; }
+try{
+const q = await sale.quote(amt);
+$('quote').textContent = fmt(q, payDecimals);
+// 결제토큰이 ERC-20이면 allowance 확인해 Approve 버튼 노출
+if(!isNative){
+const erc = new ethers.Contract(paymentToken, erc20Abi, signer);
+const allowance = await erc.allowance(acct, SALE_ADDRESS);
+const need = q;
+$('btnApprove').style.display = allowance.lt(need) ? 'inline-block' : 'none';
+} else {
+$('btnApprove').style.display = 'none';
+}
+}catch(e){
+console.log(e);
+}
+}
+
+
+async function approve(){
+const amt = parse($('amount').value, sellDecimals);
+if(amt.isZero()) return alert('수량을 입력하세요');
+const q = await sale.quote(amt);
+const erc = new ethers.Contract(paymentToken, erc20Abi, signer);
+const tx = await erc.approve(SALE_ADDRESS, q);
+$('tx').textContent = '승인 트랜잭션: ' + tx.hash;
+await tx.wait();
+$('tx').textContent = '승인 완료: ' + tx.hash;
+await quoteUpdate();
+}
+
+
+async function buy(){
+const amt = parse($('amount').value, sellDecimals);
+if(amt.isZero()) return alert('수량을 입력하세요');
+if(!lot.isZero() && !amt.mod(lot).eq(0)) return alert('수량은 lotSize 배수여야 합니다.');
+const q = await sale.quote(amt);
+
+
+let tx;
+if(isNative){
+tx = await sale.buy(amt, { value: q });
+} else {
+tx = await sale.buy(amt);
+}
+$('tx').textContent = '구매 트랜잭션: ' + tx.hash;
+await tx.wait();
+$('tx').textContent = '구매 완료: ' + tx.hash;
+}
+
+
+$('btnConnect').onclick = connect;
+$('btnApprove').onclick = approve;
+$('btnBuy').onclick = buy;
+})();
+</script>
+</body>
+</html>
