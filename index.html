@@ -109,8 +109,22 @@
       display:inline-flex; align-items:center; gap:8px;
       transition:.15s transform,.15s filter;
       cursor:pointer;
+      color: var(--txt);
     }
     .btn:hover{transform:translateY(-1px); filter:brightness(1.06)}
+    .ghost{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:800;
+      font-size:13px;
+      transition:.15s border-color,.15s transform,.15s background;
+      display:inline-flex; align-items:center; gap:8px;
+      cursor:pointer;
+      color: var(--txt);
+    }
+    .ghost:hover{transform:translateY(-1px); border-color: rgba(124,58,237,.28); background: rgba(255,255,255,.05)}
     .icon{
       width:14px; height:14px; display:inline-block;
       border-radius:4px;
@@ -170,17 +184,6 @@
     @media (max-width: 520px){ h1{font-size:40px} }
     .lead{color: rgba(233,237,247,.88); font-size:16px; max-width:66ch; margin:0 0 18px}
     .cta{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
-    .ghost{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      font-weight:800;
-      font-size:13px;
-      transition:.15s border-color,.15s transform,.15s background;
-      display:inline-flex; align-items:center; gap:8px;
-    }
-    .ghost:hover{transform:translateY(-1px); border-color: rgba(124,58,237,.28); background: rgba(255,255,255,.05)}
     .subnote{margin-top:14px; color: rgba(233,237,247,.62); font-size:12.5px}
 
     /* Side panel */
@@ -211,6 +214,7 @@
       font-size:12px;
       cursor:pointer; user-select:none;
       transition:.15s transform,.15s border-color,.15s background;
+      color: var(--txt);
     }
     .copy:hover{transform:translateY(-1px); border-color: rgba(34,211,238,.28); background: rgba(255,255,255,.05)}
     .tiny{font-size:12px; color: rgba(233,237,247,.55)}
@@ -252,7 +256,9 @@
       border-radius: 16px;
       background: rgba(255,255,255,.03);
       align-items:flex-start;
+      margin-top:10px;
     }
+    .kpi:first-child{margin-top:0}
     .kpi b{font-size:13px}
     .kpi span{color: rgba(233,237,247,.62); font-size:12px}
 
@@ -267,9 +273,7 @@
     }
 
     /* Einstein tongue-inspired animation block (abstract, no photo) */
-    .einstein-wrap{
-      padding:18px;
-    }
+    .einstein-wrap{ padding:18px; }
     .einstein{
       border:1px solid var(--line);
       border-radius: 22px;
@@ -282,9 +286,7 @@
       gap:16px;
       align-items:center;
     }
-    @media (max-width: 900px){
-      .einstein{grid-template-columns:1fr}
-    }
+    @media (max-width: 900px){ .einstein{grid-template-columns:1fr} }
     .einstein h2{margin:0 0 8px; font-size:20px; letter-spacing:-.35px}
     .einstein p{margin:0; color: rgba(233,237,247,.78); font-size:14px; max-width:62ch}
     .badge-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
@@ -318,7 +320,6 @@
     }
     @keyframes swirl{to{transform: rotate(360deg)}}
 
-    /* Face outline */
     .face{
       position:absolute;
       left:50%; top:50%;
@@ -327,7 +328,6 @@
       opacity:.95;
     }
 
-    /* Wiggly tongue */
     .tongue{
       position:absolute;
       left:50%; top:58%;
@@ -381,11 +381,13 @@
       flex-wrap:wrap;
     }
 
-    /* Reduced motion accessibility */
     @media (prefers-reduced-motion: reduce){
       .anim-stage:before, .tongue, .tongue path, .spark{animation:none !important}
       html{scroll-behavior:auto}
     }
+
+    /* Inputs (for ATM section) */
+    input, button { font-family: inherit; }
   </style>
 </head>
 
@@ -403,6 +405,7 @@
         <a class="chip" href="#about">About</a>
         <a class="chip" href="#proof">Why</a>
         <a class="chip" href="#tokenomics">Tokenomics</a>
+        <a class="chip" href="#atm">ATM Swap</a>
         <a class="chip" href="#how">How to Buy</a>
         <a class="chip" href="#faq">FAQ</a>
         <a class="btn" href="#community"><span class="icon"></span>Community</a>
@@ -520,7 +523,7 @@
             <div class="badge-row">
               <span class="badge">Abstract animation</span>
               <span class="badge">No photo used</span>
-              <span class="badge">Vibes > ego</span>
+              <span class="badge">Vibes &gt; ego</span>
             </div>
             <div class="callout">
               Mr. Quantum is a community meme token. Expectations: fun first, transparency always.
@@ -530,19 +533,15 @@
           <div class="anim-stage" aria-label="Einstein tongue inspired animation">
             <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span><span class="spark s4"></span>
 
-            <!-- Face outline (simple abstract strokes) -->
             <svg class="face" viewBox="0 0 260 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M56 122c0 44 34 78 74 78h0c40 0 74-34 74-78v-14c0-44-34-78-74-78h0c-40 0-74 34-74 78v14z"
                 stroke="rgba(233,237,247,.22)" stroke-width="2.2"/>
-              <!-- eyes -->
               <path d="M92 98c8-8 18-8 26 0" stroke="rgba(233,237,247,.26)" stroke-width="2.2" stroke-linecap="round"/>
               <path d="M142 98c8-8 18-8 26 0" stroke="rgba(233,237,247,.26)" stroke-width="2.2" stroke-linecap="round"/>
-              <!-- moustache-ish wiggles -->
               <path d="M86 126c16 10 32 10 48 0" stroke="rgba(233,237,247,.18)" stroke-width="2.2" stroke-linecap="round"/>
               <path d="M126 126c16 10 32 10 48 0" stroke="rgba(233,237,247,.18)" stroke-width="2.2" stroke-linecap="round"/>
             </svg>
 
-            <!-- Tongue (stylized) -->
             <svg class="tongue" viewBox="0 0 170 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <defs>
                 <linearGradient id="tg" x1="0" y1="0" x2="170" y2="110" gradientUnits="userSpaceOnUse">
@@ -559,7 +558,6 @@
                 </filter>
               </defs>
 
-              <!-- main tongue blob -->
               <path d="M20 42
                        C24 20, 48 12, 72 20
                        C82 24, 88 32, 96 36
@@ -570,7 +568,6 @@
                        C36 90, 18 84, 16 66
                        C14 56, 16 50, 20 42Z"
                     fill="url(#tg)" filter="url(#soft)" opacity=".95"/>
-              <!-- tongue crease -->
               <path d="M62 36 C74 50, 86 62, 94 78"
                     stroke="rgba(6,8,18,.35)" stroke-width="4" stroke-linecap="round" opacity=".35"/>
               <path d="M62 36 C74 50, 86 62, 94 78"
@@ -646,6 +643,94 @@
       </div>
     </section>
 
+    <!-- ATM SWAP -->
+    <section class="section" id="atm">
+      <div class="card box">
+        <h2>MRQTUM ATM Swap</h2>
+        <p class="muted">
+          Send SUI to the deposit address below. Once your deposit is detected, the system automatically sends MRQTUM back to the sender wallet.
+          This website never asks for your private key.
+        </p>
+
+        <div class="grid" style="margin-top:12px">
+          <div class="col-6">
+            <div class="kpi">
+              <div>
+                <b>Deposit Address (SUI)</b><br/>
+                <span class="mono" id="atmDepositAddr">0xDEPOSIT_ADDRESS_TBA</span>
+              </div>
+              <span>official</span>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+              <button class="btn" type="button" id="atmCopyAddr"><span class="icon"></span>Copy Address</button>
+              <a class="ghost" href="#" id="atmExplorerAddr" target="_blank" rel="noopener noreferrer">View on Explorer</a>
+            </div>
+
+            <div class="kpi" style="margin-top:12px">
+              <div>
+                <b>Rate</b><br/>
+                <span class="mono" id="atmRate">1 SUI → 10,000 MRQTUM</span>
+              </div>
+              <span>example</span>
+            </div>
+
+            <div class="kpi" style="margin-top:10px">
+              <div>
+                <b>Required Memo / Order ID</b><br/>
+                <span class="mono" id="atmOrderId">—</span>
+              </div>
+              <span>helps matching</span>
+            </div>
+
+            <div class="callout" style="margin-top:12px">
+              Important: Send from a wallet you control. Some exchanges may not preserve the original sender address reliably.
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="kpi">
+              <div>
+                <b>Status</b><br/>
+                <span class="mono" id="atmStatus">Idle</span>
+              </div>
+              <span>live</span>
+            </div>
+
+            <div class="kpi" style="margin-top:10px">
+              <div>
+                <b>Detected Deposit</b><br/>
+                <span class="mono" id="atmDepositTx">—</span>
+              </div>
+              <span>tx</span>
+            </div>
+
+            <div class="kpi" style="margin-top:10px">
+              <div>
+                <b>Payout (MRQTUM)</b><br/>
+                <span class="mono" id="atmPayoutTx">—</span>
+              </div>
+              <span>tx</span>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px">
+              <button class="btn" type="button" id="atmCreateOrder"><span class="icon"></span>Create Order ID</button>
+              <button class="ghost" type="button" id="atmCheck">Check Status</button>
+            </div>
+
+            <div style="margin-top:12px; border:1px solid var(--line); border-radius:16px; background:rgba(255,255,255,.03); padding:12px 14px; max-height:220px; overflow:auto">
+              <div class="tiny" style="margin-bottom:6px">ATM Log</div>
+              <div id="atmLog" class="mono" style="font-size:12px; color:rgba(233,237,247,.75); white-space:pre-wrap"></div>
+            </div>
+
+            <div class="callout" style="margin-top:12px">
+              Safety: Only use the deposit address shown here. Beware of fake websites and fake tokens.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- HOW + COMMUNITY -->
     <section class="section" id="how">
       <div class="grid">
@@ -660,7 +745,7 @@
             <li>Double-check CA before signing any transaction</li>
           </ol>
           <div class="callout">
-            Safety: never trust DMs. Only the official links on this page.
+            Safety: never trust DMs. Use only official links from this page.
           </div>
         </div>
 
@@ -696,8 +781,8 @@
               In the “Quick Facts” panel at the top of this page, plus official pinned posts.</p>
             </div>
             <div class="col-6">
-              <p><b>What makes Mr. Quantum different?</b><br/>
-              A clean launch experience: clear links, public updates, and a community-first content engine.</p>
+              <p><b>How does the ATM swap work?</b><br/>
+              You send SUI to the deposit address. After detection, the system sends MRQTUM back to the sender wallet.</p>
             </div>
             <div class="col-6">
               <p><b>How do I avoid scams?</b><br/>
@@ -706,7 +791,7 @@
           </div>
 
           <div class="callout" style="margin-top:12px">
-            Legal/risk note: nothing here guarantees returns. Participate responsibly.
+            Risk note: nothing here guarantees returns. Participate responsibly.
           </div>
         </div>
       </div>
@@ -739,7 +824,7 @@
       });
     });
 
-    // ====== EDIT ONLY THIS CONFIG ======
+    // ====== EDIT THIS CONFIG ======
     const CONFIG = {
       network: "Sui",
       contractAddress: "TBA — paste contract address here",
@@ -783,6 +868,120 @@
     setLink("btnX", CONFIG.links.x);
     setLink("btnTg", CONFIG.links.telegram);
     setLink("btnDocs", CONFIG.links.docs);
+
+    // =========================
+    // MRQTUM ATM Swap (Frontend)
+    // =========================
+    // IMPORTANT: GitHub Pages users cannot access your local PC.
+    // For public use, deploy your bot API and change this to your public domain.
+    const ATM_API_BASE = "http://127.0.0.1:8787"; // TODO: replace for public
+
+    const SUI_EXPLORER_ADDR = (addr) => `https://suiexplorer.com/address/${encodeURIComponent(addr)}`;
+    const SUI_EXPLORER_TX   = (tx)   => `https://suiexplorer.com/tx/${encodeURIComponent(tx)}`;
+
+    const elAddr   = document.getElementById("atmDepositAddr");
+    const elRate   = document.getElementById("atmRate");
+    const elOrder  = document.getElementById("atmOrderId");
+    const elStat   = document.getElementById("atmStatus");
+    const elDepTx  = document.getElementById("atmDepositTx");
+    const elPayTx  = document.getElementById("atmPayoutTx");
+    const elLog    = document.getElementById("atmLog");
+    const linkAddr = document.getElementById("atmExplorerAddr");
+
+    const logATM = (msg) => {
+      const ts = new Date().toLocaleTimeString();
+      elLog.textContent = `[${ts}] ${msg}\n` + elLog.textContent;
+    };
+
+    async function copyText(text){
+      try {
+        await navigator.clipboard.writeText(text);
+        logATM("Copied.");
+      } catch {
+        logATM("Copy failed (check browser permissions).");
+      }
+    }
+
+    async function apiGet(path){
+      const res = await fetch(`${ATM_API_BASE}${path}`, { method:"GET" });
+      if(!res.ok){
+        const t = await res.text().catch(()=> "");
+        throw new Error(`API ${res.status}: ${t || "request failed"}`);
+      }
+      return res.json();
+    }
+
+    async function apiPost(path, body){
+      const res = await fetch(`${ATM_API_BASE}${path}`, {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(body || {})
+      });
+      if(!res.ok){
+        const t = await res.text().catch(()=> "");
+        throw new Error(`API ${res.status}: ${t || "request failed"}`);
+      }
+      return res.json();
+    }
+
+    async function loadATMConfig(){
+      try{
+        const cfg = await apiGet("/api/atm/config");
+        if(cfg.depositAddress) elAddr.textContent = cfg.depositAddress;
+        if(cfg.rateText) elRate.textContent = cfg.rateText;
+
+        linkAddr.href = SUI_EXPLORER_ADDR(elAddr.textContent.trim());
+        logATM("ATM config loaded.");
+      } catch(e){
+        linkAddr.href = SUI_EXPLORER_ADDR(elAddr.textContent.trim());
+        logATM(`Config load failed: ${e.message}`);
+      }
+    }
+
+    async function createOrder(){
+      try{
+        elStat.textContent = "Creating order…";
+        const data = await apiPost("/api/atm/order", {});
+        elOrder.textContent = data.orderId || "—";
+        elStat.textContent = "Order created. Send SUI now.";
+        logATM(`Order created: ${elOrder.textContent}`);
+      } catch(e){
+        elStat.textContent = "Order create failed";
+        logATM(`Order create failed: ${e.message}`);
+      }
+    }
+
+    async function checkStatus(){
+      try{
+        const orderId = (elOrder.textContent || "").trim();
+        if(!orderId || orderId === "—"){
+          logATM("Create Order ID first.");
+          return;
+        }
+        elStat.textContent = "Checking…";
+
+        const s = await apiGet(`/api/atm/status?orderId=${encodeURIComponent(orderId)}`);
+        elStat.textContent = s.status || "Unknown";
+
+        if(s.depositTx){
+          elDepTx.innerHTML = `<a href="${SUI_EXPLORER_TX(s.depositTx)}" target="_blank" rel="noopener noreferrer">${s.depositTx}</a>`;
+        }
+        if(s.payoutTx){
+          elPayTx.innerHTML = `<a href="${SUI_EXPLORER_TX(s.payoutTx)}" target="_blank" rel="noopener noreferrer">${s.payoutTx}</a>`;
+        }
+        if(s.message) logATM(s.message);
+        logATM(`Status: ${elStat.textContent}`);
+      } catch(e){
+        elStat.textContent = "Check failed";
+        logATM(`Status check failed: ${e.message}`);
+      }
+    }
+
+    document.getElementById("atmCopyAddr")?.addEventListener("click", () => copyText(elAddr.textContent.trim()));
+    document.getElementById("atmCreateOrder")?.addEventListener("click", createOrder);
+    document.getElementById("atmCheck")?.addEventListener("click", checkStatus);
+
+    loadATMConfig();
   </script>
 </body>
 </html>
